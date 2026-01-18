@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>モバイル・ノンシュガー・フレーバードロップ 事業可能性調査</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Palette - 'Fresh & Energetic' */
+        :root {
+            --color-primary: #0ea5e9;   /* Sky 500 */
+            --color-secondary: #6366f1; /* Indigo 500 */
+            --color-accent: #84cc16;    /* Lime 500 */
+            --color-dark: #0f172a;      /* Slate 900 */
+            --color-light: #f8fafc;     /* Slate 50 */
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--color-light);
+            color: var(--color-dark);
+        }
+
+        /* Chart Container Strict Styling */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px; /* Base height */
+            max-height: 400px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        /* Timeline Styling (CSS only, no SVG) */
+        .timeline-item {
+            position: relative;
+            border-left: 4px solid var(--color-primary);
+            padding-left: 20px;
+            margin-bottom: 24px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            background-color: var(--color-accent);
+            border-radius: 50%;
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+    <!-- 
+    SOURCE MATERIAL ANALYSIS & PLAN:
+    1. Introduction: Hook the user with the concept of "Mobile x Carbonation".
+    2. Market Data: Show growth to justify entry. (Chart: Line)
+    3. Competitor Gap: Show why existing solutions fail. (Chart: Radar)
+    4. Product Strategy: Pricing and Target. (Chart: Bar)
+    5. Supply Chain: Cost structure. (Chart: Stacked Bar)
+    6. Go-To-Market: Roadmap. (Chart: Timeline CSS)
+    
+    PALETTE SELECTION:
+    "Energetic Blue & Lime" to represent water, freshness, and citrus. 
+    Matches "Professional & Stylish".
+    
+    NO SVG CONFIRMATION:
+    All icons are Unicode. All charts are Canvas (Chart.js). No SVGs used. No Mermaid used.
+    -->
+</head>
+<body class="antialiased">
+
+    <!-- Header / Hook -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold tracking-tight text-gray-800">
+                <span class="text-sky-500">◆</span> Market Research
+            </h1>
+            <div class="text-sm font-semibold text-gray-500">2025-2030 Strategy</div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-12">
+
+        <!-- Title Section -->
+        <section class="text-center py-10">
+            <h2 class="text-4xl md:text-5xl font-black mb-4 leading-tight">
+                ポータブル・ノンシュガー<br><span class="text-gradient">フレーバードロップ</span>
+            </h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                コンビニ炭酸水に「自分らしさ」を数滴。<br>
+                成長する無糖炭酸水市場における、新たなD2Cモバイルブランドの事業可能性。
+            </p>
+        </section>
+
+        <!-- Section 1: Market Trends -->
+        <section class="bg-white rounded-2xl shadow-lg p-6 md:p-10">
+            <div class="mb-6">
+                <h3 class="text-2xl font-bold text-gray-800 border-b-2 border-sky-500 inline-block pb-2 mb-4">1. 市場動向と成長性</h3>
+                <p class="text-gray-600 mb-4">
+                    健康志向の高まりにより、無糖炭酸水市場は堅調に拡大を続けています。2030年には2025年比で約125%の市場規模に達すると予測されており、特に「味変（フレーバーチェンジ）」へのニーズが急増しています。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <!-- Market Growth Chart -->
+                <div class="flex flex-col">
+                    <h4 class="text-lg font-semibold text-gray-700 mb-2 text-center">国内無糖炭酸水市場規模予測 (億円)</h4>
+                    <div class="chart-container">
+                        <canvas id="marketGrowthChart"></canvas>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2 text-center bg-gray-50 p-2 rounded">
+                        <span class="font-bold text-sky-600">Insight:</span> 年平均成長率(CAGR)は4.5%で推移。オフィス需要と家庭内需要の双方が牽引。
+                    </p>
+                </div>
+
+                <!-- Consumer Needs Donut -->
+                <div class="flex flex-col">
+                    <h4 class="text-lg font-semibold text-gray-700 mb-2 text-center">炭酸水ユーザーの「不満・ニーズ」</h4>
+                    <div class="chart-container">
+                        <canvas id="consumerNeedsChart"></canvas>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2 text-center bg-gray-50 p-2 rounded">
+                        <span class="font-bold text-sky-600">Insight:</span> 「味に飽きる」「外出先で好みの味が無い」層が全体の40%以上を占め、ポータブルドロップの参入余地大。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Competitor & Differentiation -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Left: Radar Chart -->
+            <div class="md:col-span-2 bg-white rounded-2xl shadow-lg p-6 md:p-10">
+                <div class="mb-6">
+                    <h3 class="text-2xl font-bold text-gray-800 border-b-2 border-indigo-500 inline-block pb-2 mb-4">2. 競合優位性分析</h3>
+                    <p class="text-gray-600 mb-4">
+                        既存の「家庭用シロップ（モナン等）」や「既製品フレーバー水」に対し、本事業は「携帯性」と「カスタマイズ性」で圧倒的な差別化を図ります。
+                    </p>
+                </div>
+                <div class="chart-container mx-auto">
+                    <canvas id="competitorRadarChart"></canvas>
+                </div>
+                <p class="text-sm text-gray-500 mt-4 text-center">
+                    <span class="font-bold text-indigo-600">Advantage:</span> 「持ち運びやすさ」と「成分へのこだわり（ノンシュガー・天然香料）」が最大の武器。
+                </p>
+            </div>
+
+            <!-- Right: Feature Cards -->
+            <div class="md:col-span-1 space-y-6">
+                <div class="bg-indigo-600 rounded-2xl shadow-lg p-6 text-white transform hover:scale-105 transition duration-300">
+                    <div class="text-4xl mb-2">⚡</div>
+                    <h4 class="text-xl font-bold mb-2">タイパ (Time Performance)</h4>
+                    <p class="text-indigo-100 text-sm">コンビニで炭酸水を買って3秒で完成。カフェに並ぶ時間を短縮し、即座にリフレッシュ。</p>
+                </div>
+                <div class="bg-sky-500 rounded-2xl shadow-lg p-6 text-white transform hover:scale-105 transition duration-300">
+                    <div class="text-4xl mb-2">🌱</div>
+                    <h4 class="text-xl font-bold mb-2">Eco-Friendly</h4>
+                    <p class="text-sky-100 text-sm">ペットボトル廃棄を削減。30mlの小瓶で500mlボトル約15本分に対応し、プラごみを削減。</p>
+                </div>
+                <div class="bg-lime-500 rounded-2xl shadow-lg p-6 text-white transform hover:scale-105 transition duration-300">
+                    <div class="text-4xl mb-2">🎨</div>
+                    <h4 class="text-xl font-bold mb-2">Personalize</h4>
+                    <p class="text-lime-100 text-sm">「今日は濃いめ」「ほんのり香りだけ」。その日の気分に合わせて濃度を自在に調整。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Pricing & Target -->
+        <section class="bg-white rounded-2xl shadow-lg p-6 md:p-10">
+            <div class="mb-6">
+                <h3 class="text-2xl font-bold text-gray-800 border-b-2 border-lime-500 inline-block pb-2 mb-4">3. 価格受容性とターゲット</h3>
+                <p class="text-gray-600 mb-4">
+                    都内ビジネスパーソン（20-40代）を対象とした調査結果。1本（30ml/約15回分）に対して支払える金額の分布。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="flex flex-col">
+                    <div class="chart-container">
+                        <canvas id="priceSensitivityChart"></canvas>
+                    </div>
+                </div>
+                <div class="flex flex-col space-y-4">
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-lime-500">
+                        <h4 class="font-bold text-lg text-gray-800">推奨価格帯：980円〜1,280円</h4>
+                        <p class="text-sm text-gray-600 mt-1">「高機能・プレミアム」として認識されるゾーン。1杯あたり約60〜80円となり、カフェ利用と比較して高いコストメリットを訴求可能。</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-sky-500">
+                        <h4 class="font-bold text-lg text-gray-800">ネーミングコンセプト案</h4>
+                        <ul class="list-disc list-inside text-sm text-gray-600 mt-2 space-y-1">
+                            <li><strong>"AQUA DROP"</strong> - シンプル・機能的</li>
+                            <li><strong>"SODA HACK"</strong> - タイパ・工夫</li>
+                            <li><strong>"Pocket Bar"</strong> - 外出先の贅沢</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Supply Chain & Cost -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Cost Structure -->
+            <div class="lg:col-span-1 bg-white rounded-2xl shadow-lg p-6">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">製造コスト構造 (概算)</h3>
+                <p class="text-sm text-gray-600 mb-4">小ロット(1,000個)製造時の1個あたり原価内訳。</p>
+                <div class="chart-container">
+                    <canvas id="costStructureChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Supply Chain Process -->
+            <div class="lg:col-span-2 bg-white rounded-2xl shadow-lg p-6">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">OEM製造・供給フロー</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Step 1 -->
+                    <div class="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
+                        <div class="bg-blue-100 text-blue-600 font-bold px-3 py-1 rounded">01</div>
+                        <div>
+                            <h4 class="font-bold text-gray-700">レシピ開発 (2ヶ月)</h4>
+                            <p class="text-xs text-gray-500">香料選定・ステビア配合調整。プロトタイプ作成と官能評価。</p>
+                        </div>
+                    </div>
+                     <!-- Step 2 -->
+                     <div class="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
+                        <div class="bg-blue-100 text-blue-600 font-bold px-3 py-1 rounded">02</div>
+                        <div>
+                            <h4 class="font-bold text-gray-700">容器選定・調達</h4>
+                            <p class="text-xs text-gray-500">携帯性を重視した「点眼容器型」または「スクイズボトル」。液漏れ防止テスト必須。</p>
+                        </div>
+                    </div>
+                     <!-- Step 3 -->
+                     <div class="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
+                        <div class="bg-blue-100 text-blue-600 font-bold px-3 py-1 rounded">03</div>
+                        <div>
+                            <h4 class="font-bold text-gray-700">小ロットOEM製造</h4>
+                            <p class="text-xs text-gray-500">国内液体充填工場と提携。最小500個〜対応可能なパートナーを選定。</p>
+                        </div>
+                    </div>
+                     <!-- Step 4 -->
+                     <div class="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
+                        <div class="bg-blue-100 text-blue-600 font-bold px-3 py-1 rounded">04</div>
+                        <div>
+                            <h4 class="font-bold text-gray-700">品質検査・出荷</h4>
+                            <p class="text-xs text-gray-500">菌検査、重量チェックを経てAmazon倉庫または自社配送センターへ。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4 p-4 border border-blue-100 bg-blue-50 rounded text-sm text-blue-800">
+                    <strong>💡 注意点:</strong> 容器は一般的な「化粧品用」ではなく「食品用」グレードの証明書が必要となるため、調達リードタイムに余裕を持つことが重要。
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Go-to-Market Timeline -->
+        <section class="bg-gray-800 rounded-2xl shadow-xl p-6 md:p-10 text-white">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div>
+                    <h3 class="text-2xl font-bold text-white border-b-2 border-accent inline-block pb-2 mb-6">5. ローンチロードマップ</h3>
+                    <div class="pl-2">
+                        <!-- Timeline Item 1 -->
+                        <div class="timeline-item">
+                            <span class="text-xs font-bold bg-sky-600 px-2 py-1 rounded text-white mb-1 inline-block">Phase 1: 準備期 (1-3ヶ月目)</span>
+                            <h4 class="text-lg font-bold">ティザーマーケティング</h4>
+                            <p class="text-gray-300 text-sm mt-1">SNS (Instagram/TikTok) 開設。「炭酸水ライフ」の発信でフォロワー獲得。試作品モニター募集。</p>
+                        </div>
+                        <!-- Timeline Item 2 -->
+                        <div class="timeline-item">
+                            <span class="text-xs font-bold bg-sky-600 px-2 py-1 rounded text-white mb-1 inline-block">Phase 2: Makuake (4-5ヶ月目)</span>
+                            <h4 class="text-lg font-bold">クラウドファンディング実施</h4>
+                            <p class="text-gray-300 text-sm mt-1">テスト販売と初期ファン獲得。目標金額100万円。限定フレーバーセットを展開。</p>
+                        </div>
+                        <!-- Timeline Item 3 -->
+                        <div class="timeline-item">
+                            <span class="text-xs font-bold bg-sky-600 px-2 py-1 rounded text-white mb-1 inline-block">Phase 3: 自社EC (6ヶ月目〜)</span>
+                            <h4 class="text-lg font-bold">D2Cサイト正式オープン</h4>
+                            <p class="text-gray-300 text-sm mt-1">サブスクリプション（定期便）導入。ユーザーレビューを活用したUGCマーケティング。</p>
+                        </div>
+                        <!-- Timeline Item 4 -->
+                        <div class="timeline-item" style="border-left-color: transparent;">
+                            <span class="text-xs font-bold bg-sky-600 px-2 py-1 rounded text-white mb-1 inline-block">Phase 4: 拡大期 (1年後〜)</span>
+                            <h4 class="text-lg font-bold">リテール展開・コラボ</h4>
+                            <p class="text-gray-300 text-sm mt-1">ロフト・東急ハンズ等のバラエティショップ卸開始。オフィス置き菓子サービスとの連携。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SNS Allocation Chart -->
+                <div>
+                    <h4 class="text-xl font-bold mb-4">初期マーケティング予算配分</h4>
+                    <p class="text-gray-300 text-sm mb-6">認知獲得からコンバージョンまで、フェーズに合わせた媒体選定。</p>
+                    <div class="chart-container">
+                        <canvas id="marketingBudgetChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray-400 text-sm py-8 border-t border-gray-200">
+            <p>&copy; 2025 Market Strategy Report. Data simulated for proposal purposes.</p>
+        </footer>
+
+    </main>
+
+    <!-- Chart Configuration Script -->
+    <script>
+        // --- UTILITY: Label Splitting for Wrapping (Max ~16 chars) ---
+        function splitLabel(str, maxLen = 16) {
+            if (str.length <= maxLen) return str;
+            const words = str.split(''); // Splitting by char for Japanese
+            const lines = [];
+            let currentLine = '';
+
+            words.forEach(char => {
+                if ((currentLine + char).length > maxLen) {
+                    lines.push(currentLine);
+                    currentLine = char;
+                } else {
+                    currentLine += char;
+                }
+            });
+            lines.push(currentLine);
+            return lines;
+        }
+
+        // --- UTILITY: Common Tooltip Config ---
+        const commonTooltip = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    return Array.isArray(label) ? label.join('') : label;
+                }
+            }
+        };
+
+        // --- UTILITY: Common Font Config ---
+        Chart.defaults.font.family = "'Noto Sans JP', sans-serif";
+        Chart.defaults.color = '#334155';
+
+        // 1. Market Growth Chart (Line)
+        const ctxGrowth = document.getElementById('marketGrowthChart').getContext('2d');
+        new Chart(ctxGrowth, {
+            type: 'line',
+            data: {
+                labels: ['2025', '2026', '2027', '2028', '2029', '2030'],
+                datasets: [{
+                    label: '市場規模予測 (億円)',
+                    data: [1200, 1260, 1330, 1400, 1480, 1550],
+                    borderColor: '#0ea5e9',
+                    backgroundColor: 'rgba(14, 165, 233, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: '#fff',
+                    pointBorderColor: '#0ea5e9',
+                    pointRadius: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: commonTooltip,
+                    title: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 1000,
+                        grid: { color: '#e2e8f0' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // 2. Consumer Needs Chart (Donut)
+        const ctxNeeds = document.getElementById('consumerNeedsChart').getContext('2d');
+        new Chart(ctxNeeds, {
+            type: 'doughnut',
+            data: {
+                labels: ['味に変化が欲しい', '外出先で好みの味が無い', '炭酸強度へのこだわり', '価格への不満', 'その他'],
+                datasets: [{
+                    data: [35, 25, 20, 10, 10],
+                    backgroundColor: [
+                        '#0ea5e9', // Sky
+                        '#6366f1', // Indigo
+                        '#84cc16', // Lime
+                        '#cbd5e1', // Slate
+                        '#f1f5f9'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: {
+                    legend: { position: 'right', labels: { boxWidth: 15 } },
+                    tooltip: commonTooltip
+                }
+            }
+        });
+
+        // 3. Competitor Radar Chart
+        const ctxRadar = document.getElementById('competitorRadarChart').getContext('2d');
+        new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: ['携帯性 (Portability)', 'コスパ (Cost)', '成分 (Health)', 'カスタマイズ性', 'エコ (Eco)', '入手容易性'],
+                datasets: [{
+                    label: '本事業 (Mobile Drop)',
+                    data: [9, 7, 9, 10, 9, 4], // Strong product, low distribution initially
+                    borderColor: '#0ea5e9',
+                    backgroundColor: 'rgba(14, 165, 233, 0.2)',
+                    pointBackgroundColor: '#0ea5e9',
+                    borderWidth: 2
+                }, {
+                    label: '家庭用シロップ (Home)',
+                    data: [2, 8, 5, 8, 6, 7], // Bad portability, good cost
+                    borderColor: '#94a3b8',
+                    backgroundColor: 'transparent',
+                    pointBackgroundColor: '#94a3b8',
+                    borderDash: [5, 5],
+                    borderWidth: 2
+                }, {
+                    label: '既製品フレーバー水',
+                    data: [7, 6, 6, 1, 3, 10], // Good distribution, no customization, bad eco
+                    borderColor: '#f43f5e',
+                    backgroundColor: 'transparent',
+                    pointBackgroundColor: '#f43f5e',
+                    borderDash: [2, 2],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: { color: '#e2e8f0' },
+                        grid: { color: '#e2e8f0' },
+                        pointLabels: {
+                            font: { size: 12, weight: 'bold' },
+                            color: '#475569',
+                            callback: function(label) {
+                                return splitLabel(label, 8); // Split long radar labels
+                            }
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 10
+                    }
+                },
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: commonTooltip
+                }
+            }
+        });
+
+        // 4. Price Sensitivity (Bar)
+        const ctxPrice = document.getElementById('priceSensitivityChart').getContext('2d');
+        new Chart(ctxPrice, {
+            type: 'bar',
+            data: {
+                labels: ['~500円', '500~800円', '800~1000円', '1000~1300円', '1300円~'],
+                datasets: [{
+                    label: '購入意向 (%)',
+                    data: [15, 25, 35, 20, 5],
+                    backgroundColor: [
+                        '#cbd5e1',
+                        '#cbd5e1',
+                        '#84cc16', // Target Sweet Spot
+                        '#0ea5e9', // Premium Target
+                        '#cbd5e1'
+                    ],
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: commonTooltip,
+                    annotation: {
+                        // Annotation plugin not loaded, managed via text context in HTML
+                    }
+                },
+                scales: {
+                    y: { display: false },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        // 5. Cost Structure (Stacked Bar - Horizontal)
+        const ctxCost = document.getElementById('costStructureChart').getContext('2d');
+        new Chart(ctxCost, {
+            type: 'bar',
+            data: {
+                labels: ['1個あたりの原価構成'],
+                datasets: [
+                    { label: '原料(中身)', data: [25], backgroundColor: '#0ea5e9' },
+                    { label: '容器・資材', data: [30], backgroundColor: '#6366f1' },
+                    { label: '製造加工費', data: [20], backgroundColor: '#94a3b8' },
+                    { label: '物流・その他', data: [25], backgroundColor: '#cbd5e1' }
+                ]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { stacked: true, max: 100, display: false },
+                    y: { stacked: true, display: false }
+                },
+                plugins: {
+                    tooltip: commonTooltip,
+                    legend: { position: 'bottom', labels: { boxWidth: 10 } }
+                }
+            }
+        });
+
+        // 6. Marketing Budget (Pie)
+        const ctxMarketing = document.getElementById('marketingBudgetChart').getContext('2d');
+        new Chart(ctxMarketing, {
+            type: 'pie',
+            data: {
+                labels: ['Instagram広告 (認知)', 'Makuake制作費', 'インフルエンサー (TikTok)', '試供品配布', 'その他'],
+                datasets: [{
+                    data: [35, 25, 20, 15, 5],
+                    backgroundColor: [
+                        '#ec4899', // Insta Pink
+                        '#84cc16', // Makuake Green-ish
+                        '#000000', // TikTok Black
+                        '#0ea5e9', // Blue
+                        '#94a3b8'
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#1f2937' // Match dark bg
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'right', labels: { color: '#ffffff', boxWidth: 12 } },
+                    tooltip: commonTooltip
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
